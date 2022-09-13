@@ -1,4 +1,4 @@
-PHONY: download-crd-kluctl-controller create-changelog-kluctl-controller bump-chart-version-kluctl-controller generate-readme-kluctl-controller
+PHONY: download-crd-kluctl-controller create-changelog-kluctl-controller bump-chart-version-kluctl-controller generate-readme-kluctl-controller prepare-release-kluctl-controller create-release-commit-kluctl-controller
 
 # Download the CRDs the kluctl-controller Helm chart depends on
 download-crd-kluctl-controller:
