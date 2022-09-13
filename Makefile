@@ -26,8 +26,8 @@ prepare-release-kluctl-controller: create-changelog-kluctl-controller bump-chart
 # Create release commits with bump, changelog and readme
 create-release-commit-kluctl-controller:
 	$(eval NEXT_VERSION := $(shell docker run --rm -v "${PWD}:/tmp" -w /tmp convco/convco version --prefix "flux-kluctl-controller-" --bump -P charts/flux-kluctl-controller))
-	git commit --signoff -m "docs(flux-kluctl-controller): Update Readme" charts/flux-kluctl-controller/README.md
-	git commit --signoff -m "docs(flux-kluctl-controller): Update Changelog" charts/flux-kluctl-controller/CHANGELOG.md
-	git commit --signoff -m "chore(flux-kluctl-controller): Bump chart to ${NEXT_VERSION}" charts/flux-kluctl-controller/Chart.yaml
+	git add charts/flux-kluctl-controller/README.md && git commit --signoff -m "docs(flux-kluctl-controller): Update Readme" charts/flux-kluctl-controller/README.md
+	git add charts/flux-kluctl-controller/CHANGELOG.md && git commit --signoff -m "docs(flux-kluctl-controller): Update Changelog" charts/flux-kluctl-controller/CHANGELOG.md
+	git add charts/flux-kluctl-controller/Chart.yaml && git commit --signoff -m "chore(flux-kluctl-controller): Bump chart to ${NEXT_VERSION}" charts/flux-kluctl-controller/Chart.yaml
 
 
