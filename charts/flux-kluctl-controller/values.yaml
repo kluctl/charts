@@ -41,10 +41,8 @@ securityContext:
 service:
   type: ClusterIP
   prometheus:
-    type: ClusterIP
     port: 8080
   health:
-    type: ClusterIP
     port: 9440
 
 resources: {}
