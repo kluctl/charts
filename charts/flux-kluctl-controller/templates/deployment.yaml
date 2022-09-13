@@ -33,11 +33,11 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http-prom
-              containerPort: {{ .Values.service.prometheus.port }}
-              protocol: {{ .Values.service.prometheus.type }}
+              containerPort: 8080
+              protocol: TCP
             - name: healthz
-              containerPort: {{ .Values.service.health.port }}
-              protocol: {{ .Values.service.health.type }}
+              containerPort: 9440
+              protocol: TCP
           env:
             - name: RUNTIME_NAMESPACE
               valueFrom:
