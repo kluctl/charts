@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'Chart.yaml'
+      - '**/Chart.yaml'
 
 permissions:
   contents: write # needed to write releases
