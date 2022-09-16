@@ -1,6 +1,15 @@
 # Changelog
 
-## Unreleased (2022-09-13)
+## [Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.0...HEAD) (2022-09-16)
+
+### Features
+
+* **flux-kluctl-controller:** upgrade controller to 0.6.2
+  ([d8af41a](https://github.com/kluctl/charts/commit/d8af41a6131383c02088b3e88ac86f919c5245b8))
+* **flux-kluctl-controller:** remove obsolete kluctlmultideployments.flux.kluctl.io crd
+  ([f9e2939](https://github.com/kluctl/charts/commit/f9e293911d5bd8631c9fb806c46477044013a147))
+
+## flux-kluctl-controller-0.1.0 (2022-09-13)
 
 ### Features
 
