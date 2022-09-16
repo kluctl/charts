@@ -44,6 +44,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
           args:
+            - --events-addr=http://notification-controller.{{ .Release.Namespace }}.svc.cluster.local./
             - --watch-all-namespaces
             - --log-level=info
             - --log-encoding=json
