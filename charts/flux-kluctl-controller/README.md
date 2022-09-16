@@ -36,9 +36,12 @@ A Helm chart for the flux-kluctl-controller
 | service.health.port | int | `9440` |  |
 | service.prometheus.port | int | `8080` |  |
 | service.type | string | `"ClusterIP"` |  |
-| serviceAccount.annotations | object | `{}` |  |
-| serviceAccount.create | bool | `true` |  |
-| serviceAccount.name | string | `""` |  |
+| serviceAccount.controller.annotations | object | `{}` |  |
+| serviceAccount.controller.create | bool | `true` |  |
+| serviceAccount.controller.prefix | string | `""` |  |
+| serviceAccount.reconciler.annotations | object | `{}` |  |
+| serviceAccount.reconciler.create | bool | `true` |  |
+| serviceAccount.reconciler.prefix | string | `""` |  |
 | tolerations | list | `[]` |  |
 
 ----------------------------------------------
