@@ -22,7 +22,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "flux-kluctl-controller.serviceAccountName" . }}
+      serviceAccountName: {{ include "flux-kluctl-controller.serviceAccountNameController" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -49,6 +49,7 @@ spec:
             - --log-level=info
             - --log-encoding=json
             - --enable-leader-election
+            - --service-account={{ include "flux-kluctl-controller.serviceAccountNameReconciler" . }}
           readinessProbe:
             httpGet:
               path: /readyz

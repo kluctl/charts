@@ -1,0 +1,64 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "flux-kluctl-controller.fullname" . }}-leader-election-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "flux-kluctl-controller.fullname" . }}-leader-election-role
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "flux-kluctl-controller.serviceAccountNameController" . }}
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "flux-kluctl-controller.fullname" . }}-manager-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "flux-kluctl-controller.fullname" . }}-manager-role
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "flux-kluctl-controller.serviceAccountNameController" . }}
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "flux-kluctl-controller.fullname" . }}-kluctldeployment-editor-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "flux-kluctl-controller.fullname" . }}-kluctldeployment-editor-role
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "flux-kluctl-controller.serviceAccountNameController" . }}
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "flux-kluctl-controller.fullname" . }}-kluctldeployment-viewer-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "flux-kluctl-controller.fullname" . }}-kluctldeployment-viewer-role
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "flux-kluctl-controller.serviceAccountNameController" . }}
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "flux-kluctl-controller.fullname" . }}-reconciler-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "flux-kluctl-controller.serviceAccountNameReconciler" . }}
+    namespace: {{ .Release.Namespace }}
