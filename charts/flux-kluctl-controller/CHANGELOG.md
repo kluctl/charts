@@ -4,6 +4,8 @@
 
 ### Features
 
+* **flux-kluctl-controller:** add rbac and use separate service account for reconciliation
+  ([02c8e1e](https://github.com/kluctl/charts/commit/02c8e1e00b104a443d851e7ddd9cd8ac4a3baa7c))
 * **flux-kluctl-controller:** upgrade controller to 0.6.2
   ([d8af41a](https://github.com/kluctl/charts/commit/d8af41a6131383c02088b3e88ac86f919c5245b8))
 * **flux-kluctl-controller:** remove obsolete kluctlmultideployments.flux.kluctl.io crd
