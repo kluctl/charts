@@ -1,15 +1,24 @@
 # Changelog
 
-## [Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.0...HEAD) (2022-09-16)
+## [Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.0...HEAD) (2022-09-21)
 
 ### Features
 
+* **flux-kluctl-controller:** support independent toggling of service accounts
+  ([0a2d0dc](https://github.com/kluctl/charts/commit/0a2d0dc9ca2e77d5c44709af5abc7bf0c8fc3302))
+* **flux-kluctl-controller:** split up rbac in clusterroles and roles
+  ([3709b0d](https://github.com/kluctl/charts/commit/3709b0d104c2ac076903f3ae1251651b8d7b6742))
 * **flux-kluctl-controller:** add rbac and use separate service account for reconciliation
   ([02c8e1e](https://github.com/kluctl/charts/commit/02c8e1e00b104a443d851e7ddd9cd8ac4a3baa7c))
 * **flux-kluctl-controller:** upgrade controller to 0.6.2
   ([d8af41a](https://github.com/kluctl/charts/commit/d8af41a6131383c02088b3e88ac86f919c5245b8))
 * **flux-kluctl-controller:** remove obsolete kluctlmultideployments.flux.kluctl.io crd
   ([f9e2939](https://github.com/kluctl/charts/commit/f9e293911d5bd8631c9fb806c46477044013a147))
+
+### Fixes
+
+* **flux-kluctl-controller:** use --default-service-account
+  ([b963066](https://github.com/kluctl/charts/commit/b96306668d5f236fc4a9557d3dbecef4e1d683d1))
 
 ## flux-kluctl-controller-0.1.0 (2022-09-13)
 
