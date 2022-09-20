@@ -29,11 +29,12 @@ tasks:
   download-rbac-flux-kluctl-controller:
     cmds:
       - echo "Downloading RBAC for flux-kluctl-controller with version {{.SOURCE_VER}}"
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/role.yaml)\n---\n" > charts/flux-kluctl-controller/templates/clusterroles.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/kluctldeployment_editor_role.yaml)\n---\n" >> charts/flux-kluctl-controller/templates/clusterroles.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/kluctldeployment_viewer_role.yaml)\n---\n" >> charts/flux-kluctl-controller/templates/clusterroles.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/leader_election_role.yaml)\n---\n" >> charts/flux-kluctl-controller/templates/clusterroles.yaml
-      - "sed -i -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' charts/flux-kluctl-controller/templates/clusterroles.yaml"
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/role.yaml)\n---\n" > charts/flux-kluctl-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/kluctldeployment_editor_role.yaml)\n---\n" >> charts/flux-kluctl-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/kluctldeployment_viewer_role.yaml)\n---\n" >> charts/flux-kluctl-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/leader_election_role.yaml)\n---\n" > charts/flux-kluctl-controller/templates/role.yaml
+      - "sed -i -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' charts/flux-kluctl-controller/templates/clusterrole.yaml"
+      - "sed -i -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' charts/flux-kluctl-controller/templates/role.yaml"
     vars:
       SOURCE_VER:
         sh: "cat charts/flux-kluctl-controller/Chart.yaml | grep -Po '(?<=appVersion: )[^;]+' | tr -d '\"'"
