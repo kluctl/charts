@@ -89,9 +89,9 @@ tasks:
         vars: {CHART_NAME: flux-kluctl-controller}
   create-release-commit-template:
     cmds:
-      - git add charts/{{.CHART_NAME}}/README.md && git commit --signoff -m "docs({{.CHART_NAME}}): Update Readme" charts/{{.CHART_NAME}}/README.md
-      - git add charts/{{.CHART_NAME}}/CHANGELOG.md && git commit --signoff -m "docs({{.CHART_NAME}}): Update Changelog" charts/{{.CHART_NAME}}/CHANGELOG.md
-      - git add charts/{{.CHART_NAME}}/Chart.yaml && git commit --signoff -m "chore({{.CHART_NAME}}): Bump chart to ${NEXT_VERSION}" charts/{{.CHART_NAME}}/Chart.yaml
+      - "(git add charts/{{.CHART_NAME}}/README.md && git commit --signoff -m \"docs({{.CHART_NAME}}): Update Readme\" charts/{{.CHART_NAME}}/README.md) || true"
+      - "(git add charts/{{.CHART_NAME}}/CHANGELOG.md && git commit --signoff -m \"docs({{.CHART_NAME}}): Update Changelog\" charts/{{.CHART_NAME}}/CHANGELOG.md) || true"
+      - "(git add charts/{{.CHART_NAME}}/Chart.yaml && git commit --signoff -m \"chore({{.CHART_NAME}}): Bump chart to ${NEXT_VERSION}\" charts/{{.CHART_NAME}}/Chart.yaml) || true"
   # Template all charts
   template-all-charts:
     cmds:
