@@ -67,25 +67,6 @@ spec:
                 description: Args specifies dynamic target args. Only arguments defined
                   by 'dynamicArgs' of the target are allowed.
                 type: object
-              dependsOn:
-                description: DependsOn may contain a meta.NamespacedObjectReference
-                  slice with references to resources that must be ready before this
-                  kluctl project can be deployed.
-                items:
-                  description: NamespacedObjectReference contains enough information
-                    to locate the referenced Kubernetes resource object in any namespace.
-                  properties:
-                    name:
-                      description: Name of the referent.
-                      type: string
-                    namespace:
-                      description: Namespace of the referent, when not specified it
-                        acts as LocalObjectReference.
-                      type: string
-                  required:
-                  - name
-                  type: object
-                type: array
               deployInterval:
                 description: DeployInterval specifies the interval at which to deploy
                   the KluctlDeployment. This is independent of the 'Interval' value,
@@ -299,20 +280,18 @@ spec:
                   kluctl project.
                 properties:
                   apiVersion:
-                    description: API version of the referent.
+                    description: API version of the referent, if not specified the
+                      Kubernetes preferred version will be used.
                     type: string
                   kind:
                     description: Kind of the referent.
-                    enum:
-                    - GitRepository
-                    - Bucket
                     type: string
                   name:
                     description: Name of the referent.
                     type: string
                   namespace:
-                    description: Namespace of the referent, defaults to the namespace
-                      of the Kubernetes resource object that contains the reference.
+                    description: Namespace of the referent, when not specified it
+                      acts as LocalObjectReference.
                     type: string
                 required:
                 - kind
@@ -362,13 +341,14 @@ spec:
                   description: "Condition contains details for one aspect of the current
                     state of this API Resource. --- This struct is intended for direct
                     use as an array at the field path .status.conditions.  For example,
-                    type FooStatus struct{     // Represents the observations of a
-                    foo's current state.     // Known .status.conditions.type are:
-                    \"Available\", \"Progressing\", and \"Degraded\"     // +patchMergeKey=type
-                    \    // +patchStrategy=merge     // +listType=map     // +listMapKey=type
-                    \    Conditions []metav1.Condition `json:\"conditions,omitempty\"
-                    patchStrategy:\"merge\" patchMergeKey:\"type\" protobuf:\"bytes,1,rep,name=conditions\"`
-                    \n     // other fields }"
+                    \n \ttype FooStatus struct{ \t    // Represents the observations
+                    of a foo's current state. \t    // Known .status.conditions.type
+                    are: \"Available\", \"Progressing\", and \"Degraded\" \t    //
+                    +patchMergeKey=type \t    // +patchStrategy=merge \t    // +listType=map
+                    \t    // +listMapKey=type \t    Conditions []metav1.Condition
+                    `json:\"conditions,omitempty\" patchStrategy:\"merge\" patchMergeKey:\"type\"
+                    protobuf:\"bytes,1,rep,name=conditions\"` \n \t    // other fields
+                    \t}"
                   properties:
                     lastTransitionTime:
                       description: lastTransitionTime is the last time the condition
@@ -438,237 +418,8 @@ spec:
                   objectsHash:
                     description: ObjectsHash is the hash of all rendered objects
                     type: string
-                  result:
-                    properties:
-                      changedObjects:
-                        items:
-                          description: ObjectRef contains the information necessary
-                            to locate a resource within a cluster.
-                          properties:
-                            group:
-                              type: string
-                            kind:
-                              type: string
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            version:
-                              type: string
-                          required:
-                          - group
-                          - kind
-                          - name
-                          - namespace
-                          - version
-                          type: object
-                        type: array
-                      deletedObjects:
-                        items:
-                          description: ObjectRef contains the information necessary
-                            to locate a resource within a cluster.
-                          properties:
-                            group:
-                              type: string
-                            kind:
-                              type: string
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            version:
-                              type: string
-                          required:
-                          - group
-                          - kind
-                          - name
-                          - namespace
-                          - version
-                          type: object
-                        type: array
-                      errors:
-                        items:
-                          properties:
-                            error:
-                              type: string
-                            ref:
-                              description: ObjectRef contains the information necessary
-                                to locate a resource within a cluster.
-                              properties:
-                                group:
-                                  type: string
-                                kind:
-                                  type: string
-                                name:
-                                  type: string
-                                namespace:
-                                  type: string
-                                version:
-                                  type: string
-                              required:
-                              - group
-                              - kind
-                              - name
-                              - namespace
-                              - version
-                              type: object
-                          required:
-                          - error
-                          - ref
-                          type: object
-                        type: array
-                      hookObjects:
-                        items:
-                          description: ObjectRef contains the information necessary
-                            to locate a resource within a cluster.
-                          properties:
-                            group:
-                              type: string
-                            kind:
-                              type: string
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            version:
-                              type: string
-                          required:
-                          - group
-                          - kind
-                          - name
-                          - namespace
-                          - version
-                          type: object
-                        type: array
-                      newObjects:
-                        items:
-                          description: ObjectRef contains the information necessary
-                            to locate a resource within a cluster.
-                          properties:
-                            group:
-                              type: string
-                            kind:
-                              type: string
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            version:
-                              type: string
-                          required:
-                          - group
-                          - kind
-                          - name
-                          - namespace
-                          - version
-                          type: object
-                        type: array
-                      orphanObjects:
-                        items:
-                          description: ObjectRef contains the information necessary
-                            to locate a resource within a cluster.
-                          properties:
-                            group:
-                              type: string
-                            kind:
-                              type: string
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            version:
-                              type: string
-                          required:
-                          - group
-                          - kind
-                          - name
-                          - namespace
-                          - version
-                          type: object
-                        type: array
-                      seenImages:
-                        items:
-                          properties:
-                            container:
-                              type: string
-                            deployTags:
-                              items:
-                                type: string
-                              type: array
-                            deployedImage:
-                              type: string
-                            deployment:
-                              type: string
-                            deploymentDir:
-                              type: string
-                            image:
-                              type: string
-                            namespace:
-                              type: string
-                            object:
-                              description: ObjectRef contains the information necessary
-                                to locate a resource within a cluster.
-                              properties:
-                                group:
-                                  type: string
-                                kind:
-                                  type: string
-                                name:
-                                  type: string
-                                namespace:
-                                  type: string
-                                version:
-                                  type: string
-                              required:
-                              - group
-                              - kind
-                              - name
-                              - namespace
-                              - version
-                              type: object
-                            registryImage:
-                              type: string
-                            resultImage:
-                              type: string
-                            versionFilter:
-                              type: string
-                          required:
-                          - image
-                          - resultImage
-                          type: object
-                        type: array
-                      warnings:
-                        items:
-                          properties:
-                            error:
-                              type: string
-                            ref:
-                              description: ObjectRef contains the information necessary
-                                to locate a resource within a cluster.
-                              properties:
-                                group:
-                                  type: string
-                                kind:
-                                  type: string
-                                name:
-                                  type: string
-                                namespace:
-                                  type: string
-                                version:
-                                  type: string
-                              required:
-                              - group
-                              - kind
-                              - name
-                              - namespace
-                              - version
-                              type: object
-                          required:
-                          - error
-                          - ref
-                          type: object
-                        type: array
-                    type: object
+                  rawResult:
+                    type: string
                   revision:
                     description: Revision is the source revision. Please note that
                       kluctl projects have dependent git repositories which are not
@@ -698,237 +449,8 @@ spec:
                   objectsHash:
                     description: ObjectsHash is the hash of all rendered objects
                     type: string
-                  result:
-                    properties:
-                      changedObjects:
-                        items:
-                          description: ObjectRef contains the information necessary
-                            to locate a resource within a cluster.
-                          properties:
-                            group:
-                              type: string
-                            kind:
-                              type: string
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            version:
-                              type: string
-                          required:
-                          - group
-                          - kind
-                          - name
-                          - namespace
-                          - version
-                          type: object
-                        type: array
-                      deletedObjects:
-                        items:
-                          description: ObjectRef contains the information necessary
-                            to locate a resource within a cluster.
-                          properties:
-                            group:
-                              type: string
-                            kind:
-                              type: string
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            version:
-                              type: string
-                          required:
-                          - group
-                          - kind
-                          - name
-                          - namespace
-                          - version
-                          type: object
-                        type: array
-                      errors:
-                        items:
-                          properties:
-                            error:
-                              type: string
-                            ref:
-                              description: ObjectRef contains the information necessary
-                                to locate a resource within a cluster.
-                              properties:
-                                group:
-                                  type: string
-                                kind:
-                                  type: string
-                                name:
-                                  type: string
-                                namespace:
-                                  type: string
-                                version:
-                                  type: string
-                              required:
-                              - group
-                              - kind
-                              - name
-                              - namespace
-                              - version
-                              type: object
-                          required:
-                          - error
-                          - ref
-                          type: object
-                        type: array
-                      hookObjects:
-                        items:
-                          description: ObjectRef contains the information necessary
-                            to locate a resource within a cluster.
-                          properties:
-                            group:
-                              type: string
-                            kind:
-                              type: string
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            version:
-                              type: string
-                          required:
-                          - group
-                          - kind
-                          - name
-                          - namespace
-                          - version
-                          type: object
-                        type: array
-                      newObjects:
-                        items:
-                          description: ObjectRef contains the information necessary
-                            to locate a resource within a cluster.
-                          properties:
-                            group:
-                              type: string
-                            kind:
-                              type: string
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            version:
-                              type: string
-                          required:
-                          - group
-                          - kind
-                          - name
-                          - namespace
-                          - version
-                          type: object
-                        type: array
-                      orphanObjects:
-                        items:
-                          description: ObjectRef contains the information necessary
-                            to locate a resource within a cluster.
-                          properties:
-                            group:
-                              type: string
-                            kind:
-                              type: string
-                            name:
-                              type: string
-                            namespace:
-                              type: string
-                            version:
-                              type: string
-                          required:
-                          - group
-                          - kind
-                          - name
-                          - namespace
-                          - version
-                          type: object
-                        type: array
-                      seenImages:
-                        items:
-                          properties:
-                            container:
-                              type: string
-                            deployTags:
-                              items:
-                                type: string
-                              type: array
-                            deployedImage:
-                              type: string
-                            deployment:
-                              type: string
-                            deploymentDir:
-                              type: string
-                            image:
-                              type: string
-                            namespace:
-                              type: string
-                            object:
-                              description: ObjectRef contains the information necessary
-                                to locate a resource within a cluster.
-                              properties:
-                                group:
-                                  type: string
-                                kind:
-                                  type: string
-                                name:
-                                  type: string
-                                namespace:
-                                  type: string
-                                version:
-                                  type: string
-                              required:
-                              - group
-                              - kind
-                              - name
-                              - namespace
-                              - version
-                              type: object
-                            registryImage:
-                              type: string
-                            resultImage:
-                              type: string
-                            versionFilter:
-                              type: string
-                          required:
-                          - image
-                          - resultImage
-                          type: object
-                        type: array
-                      warnings:
-                        items:
-                          properties:
-                            error:
-                              type: string
-                            ref:
-                              description: ObjectRef contains the information necessary
-                                to locate a resource within a cluster.
-                              properties:
-                                group:
-                                  type: string
-                                kind:
-                                  type: string
-                                name:
-                                  type: string
-                                namespace:
-                                  type: string
-                                version:
-                                  type: string
-                              required:
-                              - group
-                              - kind
-                              - name
-                              - namespace
-                              - version
-                              type: object
-                          required:
-                          - error
-                          - ref
-                          type: object
-                        type: array
-                    type: object
+                  rawResult:
+                    type: string
                   revision:
                     description: Revision is the source revision. Please note that
                       kluctl projects have dependent git repositories which are not
@@ -954,109 +476,8 @@ spec:
                   objectsHash:
                     description: ObjectsHash is the hash of all rendered objects
                     type: string
-                  result:
-                    properties:
-                      errors:
-                        items:
-                          properties:
-                            error:
-                              type: string
-                            ref:
-                              description: ObjectRef contains the information necessary
-                                to locate a resource within a cluster.
-                              properties:
-                                group:
-                                  type: string
-                                kind:
-                                  type: string
-                                name:
-                                  type: string
-                                namespace:
-                                  type: string
-                                version:
-                                  type: string
-                              required:
-                              - group
-                              - kind
-                              - name
-                              - namespace
-                              - version
-                              type: object
-                          required:
-                          - error
-                          - ref
-                          type: object
-                        type: array
-                      ready:
-                        type: boolean
-                      results:
-                        items:
-                          properties:
-                            annotation:
-                              type: string
-                            message:
-                              type: string
-                            ref:
-                              description: ObjectRef contains the information necessary
-                                to locate a resource within a cluster.
-                              properties:
-                                group:
-                                  type: string
-                                kind:
-                                  type: string
-                                name:
-                                  type: string
-                                namespace:
-                                  type: string
-                                version:
-                                  type: string
-                              required:
-                              - group
-                              - kind
-                              - name
-                              - namespace
-                              - version
-                              type: object
-                          required:
-                          - annotation
-                          - message
-                          - ref
-                          type: object
-                        type: array
-                      warnings:
-                        items:
-                          properties:
-                            error:
-                              type: string
-                            ref:
-                              description: ObjectRef contains the information necessary
-                                to locate a resource within a cluster.
-                              properties:
-                                group:
-                                  type: string
-                                kind:
-                                  type: string
-                                name:
-                                  type: string
-                                namespace:
-                                  type: string
-                                version:
-                                  type: string
-                              required:
-                              - group
-                              - kind
-                              - name
-                              - namespace
-                              - version
-                              type: object
-                          required:
-                          - error
-                          - ref
-                          type: object
-                        type: array
-                    required:
-                    - ready
-                    type: object
+                  rawResult:
+                    type: string
                   revision:
                     description: Revision is the source revision. Please note that
                       kluctl projects have dependent git repositories which are not
@@ -1070,7 +491,6 @@ spec:
                     format: date-time
                     type: string
                 required:
-                - error
                 - targetName
                 - time
                 type: object
@@ -1078,6 +498,8 @@ spec:
                 description: ObservedGeneration is the last reconciled generation.
                 format: int64
                 type: integer
+              rawTarget:
+                type: string
             type: object
         type: object
     served: true

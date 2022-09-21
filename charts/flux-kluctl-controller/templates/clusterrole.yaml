@@ -1,0 +1,118 @@
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: {{ include "flux-kluctl-controller.fullname" . }}-manager-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  - secrets
+  - serviceaccounts
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - flux.kluctl.io
+  resources:
+  - kluctldeployments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - flux.kluctl.io
+  resources:
+  - kluctldeployments/finalizers
+  verbs:
+  - create
+  - delete
+  - get
+  - patch
+  - update
+- apiGroups:
+  - flux.kluctl.io
+  resources:
+  - kluctldeployments/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - source.toolkit.fluxcd.io
+  resources:
+  - buckets
+  - gitrepositories
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - source.toolkit.fluxcd.io
+  resources:
+  - buckets/status
+  - gitrepositories/status
+  verbs:
+  - get
+---
+# permissions for end users to edit kluctldeployments.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "flux-kluctl-controller.fullname" . }}-kluctldeployment-editor-role
+rules:
+- apiGroups:
+  - flux.kluctl.io
+  resources:
+  - kluctldeployments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - flux.kluctl.io
+  resources:
+  - kluctldeployments/status
+  verbs:
+  - get
+---
+# permissions for end users to view kluctldeployments.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "flux-kluctl-controller.fullname" . }}-kluctldeployment-viewer-role
+rules:
+- apiGroups:
+  - flux.kluctl.io
+  resources:
+  - kluctldeployments
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - flux.kluctl.io
+  resources:
+  - kluctldeployments/status
+  verbs:
+  - get
+---

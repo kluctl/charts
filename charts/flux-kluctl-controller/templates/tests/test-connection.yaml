@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "flux-kluctl-controller.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "flux-kluctl-controller.fullname" . }}:{{ .Values.service.health.port }}/healthz']
   restartPolicy: Never
