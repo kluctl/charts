@@ -1,8 +1,15 @@
 # Changelog
 
-## [Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.0...HEAD) (2022-09-21)
+## [Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.1...HEAD) (2022-09-23)
 
 ### Features
+
+* **flux-kluctl-controller:** update appVersion to v0.6.3
+  ([3ae9314](https://github.com/kluctl/charts/commit/3ae9314d0f76099344ea960dfaf19da454691186))
+
+### [flux-kluctl-controller-0.1.1](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.0...flux-kluctl-controller-0.1.1) (2022-09-21)
+
+#### Features
 
 * **flux-kluctl-controller:** support independent toggling of service accounts
   ([0a2d0dc](https://github.com/kluctl/charts/commit/0a2d0dc9ca2e77d5c44709af5abc7bf0c8fc3302))
@@ -15,7 +22,7 @@
 * **flux-kluctl-controller:** remove obsolete kluctlmultideployments.flux.kluctl.io crd
   ([f9e2939](https://github.com/kluctl/charts/commit/f9e293911d5bd8631c9fb806c46477044013a147))
 
-### Fixes
+#### Fixes
 
 * **flux-kluctl-controller:** use --default-service-account
   ([b963066](https://github.com/kluctl/charts/commit/b96306668d5f236fc4a9557d3dbecef4e1d683d1))
