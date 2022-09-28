@@ -37,7 +37,7 @@ tasks:
       - "sed -i -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' charts/flux-kluctl-controller/templates/role.yaml"
     vars:
       SOURCE_VER:
-        sh: "cat charts/flux-kluctl-controller/Chart.yaml | grep -Po '(?<=appVersion: )[^;]+' | tr -d '\"'"
+        sh: "cat charts/flux-kluctl-controller/Chart.yaml | grep '^appVersion:' | sed 's/appVersion: \"\\([^\"]*\\)\"/\\1/'"
       HELM_TEMPLATE_FULL_NAME: 'REPLACE_WITH_HELM_TEMPLATE'
   # Generate README.md files for Charts
   generate-all-readmes:
