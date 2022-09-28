@@ -52,23 +52,12 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-Create the name of the service account to use for the controller
+Create the name of the service account to use
 */}}
-{{- define "flux-kluctl-controller.serviceAccountNameController" -}}
-{{- if .Values.serviceAccount.controller.create }}
-{{- default (include "flux-kluctl-controller.fullname" .) .Values.serviceAccount.controller.prefix }}-controller
+{{- define "flux-kluctl-controller.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "flux-kluctl-controller.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.serviceAccount.controller.prefix }}
-{{- end }}
-{{- end }}
-
-{{/*
-Create the name of the service account to use for the reconciler
-*/}}
-{{- define "flux-kluctl-controller.serviceAccountNameReconciler" -}}
-{{- if .Values.serviceAccount.reconciler.create }}
-{{- default (include "flux-kluctl-controller.fullname" .) .Values.serviceAccount.reconciler.prefix }}-reconciler
-{{- else }}
-{{- default "default" .Values.serviceAccount.reconciler.prefix }}-reconciler
+{{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}

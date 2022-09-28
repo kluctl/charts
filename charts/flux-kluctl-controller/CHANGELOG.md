@@ -1,8 +1,17 @@
 # Changelog
 
-## [Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.1...HEAD) (2022-09-23)
+## [Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.2...HEAD) (2022-09-28)
 
 ### Features
+
+* Upgrade CRDs
+  ([b621345](https://github.com/kluctl/charts/commit/b621345a1c096d1e39eb7bc90d4fbca1c758fadb))
+* Manually bump versions
+  ([21d5b3d](https://github.com/kluctl/charts/commit/21d5b3deb45d7daf03d26f9230405cff601c1fb9))
+
+### [flux-kluctl-controller-0.1.2](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.1...flux-kluctl-controller-0.1.2) (2022-09-23)
+
+#### Features
 
 * **flux-kluctl-controller:** update appVersion to v0.6.3
   ([3ae9314](https://github.com/kluctl/charts/commit/3ae9314d0f76099344ea960dfaf19da454691186))
