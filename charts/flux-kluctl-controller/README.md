@@ -1,6 +1,6 @@
 # flux-kluctl-controller
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.6.3](https://img.shields.io/badge/AppVersion-v0.6.3-informational?style=flat-square)
+![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: v0.7.0](https://img.shields.io/badge/AppVersion-v0.7.0-informational?style=flat-square)
 
 A Helm chart for the flux-kluctl-controller
 
@@ -36,12 +36,9 @@ A Helm chart for the flux-kluctl-controller
 | service.health.port | int | `9440` |  |
 | service.prometheus.port | int | `8080` |  |
 | service.type | string | `"ClusterIP"` |  |
-| serviceAccount.controller.annotations | object | `{}` |  |
-| serviceAccount.controller.create | bool | `true` |  |
-| serviceAccount.controller.prefix | string | `""` |  |
-| serviceAccount.reconciler.annotations | object | `{}` |  |
-| serviceAccount.reconciler.create | bool | `true` |  |
-| serviceAccount.reconciler.prefix | string | `""` |  |
+| serviceAccount.annotations | object | `{}` |  |
+| serviceAccount.create | bool | `true` |  |
+| serviceAccount.name | string | `""` |  |
 | tolerations | list | `[]` |  |
 
 ----------------------------------------------
