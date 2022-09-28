@@ -24,7 +24,7 @@ tasks:
       - curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/crd/bases/flux.kluctl.io_kluctldeployments.yaml > charts/flux-kluctl-controller/crds/flux.kluctl.io_kluctldeployments.yaml
     vars:
       SOURCE_VER:
-        sh: "cat charts/flux-kluctl-controller/Chart.yaml | grep -Po '(?<=appVersion: )[^;]+' | tr -d '\"'"
+        sh: "cat charts/flux-kluctl-controller/Chart.yaml | grep '^appVersion:' | sed 's/appVersion: \"\\([^\"]*\\)\"/\\1/'"
   # Download RBAC
   download-all-rbac:
     cmds:
