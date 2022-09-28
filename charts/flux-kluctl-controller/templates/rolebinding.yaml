@@ -8,5 +8,5 @@ roleRef:
   name: {{ include "flux-kluctl-controller.fullname" . }}-leader-election-role
 subjects:
   - kind: ServiceAccount
-    name: {{ include "flux-kluctl-controller.serviceAccountNameController" . }}
+    name: {{ include "flux-kluctl-controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}

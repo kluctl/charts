@@ -8,7 +8,7 @@ roleRef:
   name: {{ include "flux-kluctl-controller.fullname" . }}-manager-role
 subjects:
   - kind: ServiceAccount
-    name: {{ include "flux-kluctl-controller.serviceAccountNameController" . }}
+    name: {{ include "flux-kluctl-controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -21,7 +21,7 @@ roleRef:
   name: {{ include "flux-kluctl-controller.fullname" . }}-kluctldeployment-editor-role
 subjects:
   - kind: ServiceAccount
-    name: {{ include "flux-kluctl-controller.serviceAccountNameController" . }}
+    name: {{ include "flux-kluctl-controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -34,7 +34,7 @@ roleRef:
   name: {{ include "flux-kluctl-controller.fullname" . }}-kluctldeployment-viewer-role
 subjects:
   - kind: ServiceAccount
-    name: {{ include "flux-kluctl-controller.serviceAccountNameController" . }}
+    name: {{ include "flux-kluctl-controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -47,5 +47,5 @@ roleRef:
   name: cluster-admin
 subjects:
   - kind: ServiceAccount
-    name: {{ include "flux-kluctl-controller.serviceAccountNameReconciler" . }}
+    name: {{ include "flux-kluctl-controller.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
