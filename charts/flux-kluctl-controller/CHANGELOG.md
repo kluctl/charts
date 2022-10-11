@@ -1,13 +1,25 @@
 # Changelog
 
-## [Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.2...HEAD) (2022-09-28)
+## [Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.3...HEAD) (2022-10-11)
 
-### Features
+### Fixes
+
+* Upgrade kluctl controller to fix zombie processes (#7)
+  ([b2a9e42](https://github.com/kluctl/charts/commit/b2a9e426243ea116a0269523578ebacd2ed68574))
+
+### [flux-kluctl-controller-0.1.3](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.2...flux-kluctl-controller-0.1.3) (2022-09-28)
+
+#### Features
 
 * Upgrade CRDs
   ([b621345](https://github.com/kluctl/charts/commit/b621345a1c096d1e39eb7bc90d4fbca1c758fadb))
 * Manually bump versions
   ([21d5b3d](https://github.com/kluctl/charts/commit/21d5b3deb45d7daf03d26f9230405cff601c1fb9))
+
+#### Fixes
+
+* Fix uses of serviceAccountNameController vs serviceAccountName
+  ([6147a12](https://github.com/kluctl/charts/commit/6147a12a4f3e0e6e7346cdd2b8515cd69bfd2d37))
 
 ### [flux-kluctl-controller-0.1.2](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.1...flux-kluctl-controller-0.1.2) (2022-09-23)
 
