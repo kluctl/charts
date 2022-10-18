@@ -16,3 +16,4 @@ $ helm search repo kluctl
 $ helm install my-release kluctl/<chart>
 ```
 
+![](install-charts.gif)
