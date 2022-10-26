@@ -1,8 +1,15 @@
 # Changelog
 
-## [Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.3...HEAD) (2022-10-11)
+## [Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.4...HEAD) (2022-10-26)
 
-### Fixes
+### Features
+
+* Upgrade flux-kluctl-controller to v0.8.0
+  ([aed8b29](https://github.com/kluctl/charts/commit/aed8b29bdf6456debedac2494e804bf5a5ee935c))
+
+### [flux-kluctl-controller-0.1.4](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.1.3...flux-kluctl-controller-0.1.4) (2022-10-11)
+
+#### Fixes
 
 * Upgrade kluctl controller to fix zombie processes (#7)
   ([b2a9e42](https://github.com/kluctl/charts/commit/b2a9e426243ea116a0269523578ebacd2ed68574))

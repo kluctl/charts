@@ -53,3 +53,6 @@ __IMPORTANT:__ Because this project follows the [conventional commit specificati
 3. Prepare the release (Bump chart, Create Changelog, Create README) by running `task prepare-release-CHART_FOLDER`.
 4. Create the release commit by running `task create-release-commit-CHART_FOLDER`.
 5. Create a pull request.
+
+![](install-charts.gif)
+
