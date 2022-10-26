@@ -51,5 +51,5 @@ __IMPORTANT:__ Because this project follows the [conventional commit specificati
 1. Check if all charts are still working by running `task template-all-charts`.
 2. Check if all charts are formatted correctly by running `task lint-all-charts`.
 3. Prepare the release (Bump chart, Create Changelog, Create README) by running `task prepare-release-CHART_FOLDER`.
-4. Create the release commit by running `task create-release-CHART_FOLDER`.
+4. Create the release commit by running `task create-release-commit-CHART_FOLDER`.
 5. Create a pull request.
