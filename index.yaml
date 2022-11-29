@@ -103,4 +103,22 @@ entries:
     urls:
     - https://github.com/kluctl/charts/releases/download/flux-kluctl-controller-0.1.2/flux-kluctl-controller-0.1.2.tgz
     version: 0.1.2
+  template-controller:
+  - apiVersion: v2
+    appVersion: v0.4.1
+    created: "2022-11-29T12:54:49.743718855Z"
+    description: A Helm chart for the template-controller
+    digest: ef74ab9e4dd534da53b40656e8a6d5849c1c7aaafd762534b11025e2fcda08c0
+    maintainers:
+    - name: kluctl
+      url: https://github.com/kluctl/charts
+    - email: aljoscha.poertner@posteo.de
+      name: AljoschaP
+    - email: ablock84@gmail.com
+      name: codablock
+    name: template-controller
+    type: application
+    urls:
+    - https://github.com/kluctl/charts/releases/download/template-controller-0.1.0/template-controller-0.1.0.tgz
+    version: 0.1.0
 generated: "2022-09-23T07:02:59.92841906Z"
