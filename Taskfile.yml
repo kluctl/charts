@@ -9,15 +9,21 @@ tasks:
   prepare-all-releases:
     - echo "Prepare all releases"
     - task prepare-release-flux-kluctl-controller
+    - task prepare-release-template-controller
   prepare-release-flux-kluctl-controller:
     - task: bump-chart-flux-kluctl-controller
     - task: generate-changelog-flux-kluctl-controller
     - task: generate-readme-flux-kluctl-controller
+  prepare-release-template-controller:
+    - task: bump-chart-template-controller
+    - task: generate-changelog-template-controller
+    - task: generate-readme-template-controller
   # Download CRDs for Charts
   download-all-crds:
     cmds:
       - echo "Downloading all CRDs"
       - task: download-crds-flux-kluctl-controller
+      - task: download-crds-template-controller
   download-crds-flux-kluctl-controller:
     cmds:
       - echo "Downloading CRDs for flux-kluctl-controller with version {{.SOURCE_VER}}"
@@ -25,11 +31,23 @@ tasks:
     vars:
       SOURCE_VER:
         sh: "cat charts/flux-kluctl-controller/Chart.yaml | grep '^appVersion:' | sed 's/appVersion: \"\\([^\"]*\\)\"/\\1/'"
+  download-crds-template-controller:
+    cmds:
+      - echo "Downloading CRDs for template-controller with version {{.SOURCE_VER}}"
+      - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_listgithubpullrequests.yaml > charts/template-controller/crds/templates.kluctl.io_listgithubpullrequests.yaml
+      - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_listgitlabmergerequests.yaml > charts/template-controller/crds/templates.kluctl.io_listgitlabmergerequests.yaml
+      - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_objecthandlers.yaml > charts/template-controller/crds/templates.kluctl.io_objecthandlers.yaml
+      - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_objecttemplates.yaml > charts/template-controller/crds/templates.kluctl.io_objecttemplates.yaml
+    vars:
+      SOURCE_VER:
+        sh: "cat charts/template-controller/Chart.yaml | grep '^appVersion:' | sed 's/appVersion: \"\\([^\"]*\\)\"/\\1/'"
+
   # Download RBAC
   download-all-rbac:
     cmds:
       - echo "Downloading all RBAC"
       - task: download-rbac-flux-kluctl-controller
+      - task: download-rbac-template-controller
   download-rbac-flux-kluctl-controller:
     cmds:
       - echo "Downloading RBAC for flux-kluctl-controller with version {{.SOURCE_VER}}"
@@ -43,15 +61,39 @@ tasks:
       SOURCE_VER:
         sh: "cat charts/flux-kluctl-controller/Chart.yaml | grep '^appVersion:' | sed 's/appVersion: \"\\([^\"]*\\)\"/\\1/'"
       HELM_TEMPLATE_FULL_NAME: '{{`{{ include "flux-kluctl-controller.fullname" . }}`}}'
+  download-rbac-template-controller:
+    cmds:
+      - echo "Downloading RBAC for template-controller with version {{.SOURCE_VER}}"
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/role.yaml)\n---\n" > charts/template-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgithubpullrequests_editor_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgithubpullrequests_viewer_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgitlabmergerequests_editor_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgitlabmergerequests_viewer_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/objecthandler_editor_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/objecthandler_viewer_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/objecttemplate_editor_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/objecttemplate_viewer_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/leader_election_role.yaml)\n---\n" > charts/template-controller/templates/role.yaml
+      - "{{.INPLACE_SED}} -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' charts/template-controller/templates/clusterrole.yaml"
+      - "{{.INPLACE_SED}} -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' charts/template-controller/templates/role.yaml"
+    vars:
+      SOURCE_VER:
+        sh: "cat charts/template-controller/Chart.yaml | grep '^appVersion:' | sed 's/appVersion: \"\\([^\"]*\\)\"/\\1/'"
+      HELM_TEMPLATE_FULL_NAME: '{{`{{ include "template-controller.fullname" . }}`}}'
   # Generate README.md files for Charts
   generate-all-readmes:
     cmds:
       - echo "Generating all README.md files"
       - task: generate-readme-flux-kluctl-controller
+      - task: generate-readme-template-controller
   generate-readme-flux-kluctl-controller:
     cmds:
       - task: generate-readme-template
         vars: {CHART_NAME: flux-kluctl-controller}
+  generate-readme-template-controller:
+    cmds:
+      - task: generate-readme-template
+        vars: { CHART_NAME: template-controller }
   generate-readme-template:
     cmds:
       - git fetch --tags
@@ -61,10 +103,15 @@ tasks:
     cmds:
       - echo "Generating all changelogs"
       - task: generate-changelog-flux-kluctl-controller
+      - task: generate-template-controller
   generate-changelog-flux-kluctl-controller:
     cmds:
       - task: generate-changelog-template
         vars: {CHART_NAME: flux-kluctl-controller}
+  generate-changelog-template-controller:
+    cmds:
+      - task: generate-changelog-template
+        vars: { CHART_NAME: template-controller }
   generate-changelog-template:
     cmds:
       - git fetch --tags
@@ -74,10 +121,15 @@ tasks:
     cmds:
       - echo "Bump all charts"
       - task: bump-chart-flux-kluctl-controller
+      - task: bump-chart-template-controller
   bump-chart-flux-kluctl-controller:
     cmds:
       - task: bump-chart-template
         vars: {CHART_NAME: flux-kluctl-controller}
+  bump-chart-template-controller:
+    cmds:
+      - task: bump-chart-template
+        vars: { CHART_NAME: template-controller }
   bump-chart-template:
     cmds:
       - git fetch --tags
@@ -87,10 +139,15 @@ tasks:
     cmds:
       - echo "Create all release commits"
       - task: create-release-commit-flux-kluctl-controller
+      - task: create-release-commit-template-controller
   create-release-commit-flux-kluctl-controller:
     cmds:
       - task: create-release-commit-template
         vars: {CHART_NAME: flux-kluctl-controller}
+  create-release-commit-template-controller:
+    cmds:
+      - task: create-release-commit-template
+        vars: { CHART_NAME: template-controller }
   create-release-commit-template:
     cmds:
       - "(git add charts/{{.CHART_NAME}}/README.md && git commit --signoff -m \"docs({{.CHART_NAME}}): Update Readme\" charts/{{.CHART_NAME}}/README.md) || true"

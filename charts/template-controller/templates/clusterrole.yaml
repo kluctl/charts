@@ -1,0 +1,348 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: {{ include "template-controller.fullname" . }}-manager-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgithubpullrequests
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgithubpullrequests/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgithubpullrequests/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgitlabmergerequests
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgitlabmergerequests/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgitlabmergerequests/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecthandlers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecthandlers/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecthandlers/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecttemplates
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecttemplates/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecttemplates/status
+  verbs:
+  - get
+  - patch
+  - update
+---
+# permissions for end users to edit listgithubpullrequests.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ include "template-controller.fullname" . }}-clusterrole
+    app.kubernetes.io/instance: listgithubpullrequests-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: template-controller
+    app.kubernetes.io/part-of: template-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: {{ include "template-controller.fullname" . }}-listgithubpullrequests-editor-role
+rules:
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgithubpullrequests
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgithubpullrequests/status
+  verbs:
+  - get
+---
+# permissions for end users to view listgithubpullrequests.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ include "template-controller.fullname" . }}-clusterrole
+    app.kubernetes.io/instance: listgithubpullrequests-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: template-controller
+    app.kubernetes.io/part-of: template-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: {{ include "template-controller.fullname" . }}-listgithubpullrequests-viewer-role
+rules:
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgithubpullrequests
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgithubpullrequests/status
+  verbs:
+  - get
+---
+# permissions for end users to edit listgitlabmergerequests.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ include "template-controller.fullname" . }}-clusterrole
+    app.kubernetes.io/instance: listgitlabmergerequests-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: template-controller
+    app.kubernetes.io/part-of: template-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: {{ include "template-controller.fullname" . }}-listgitlabmergerequests-editor-role
+rules:
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgitlabmergerequests
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgitlabmergerequests/status
+  verbs:
+  - get
+---
+# permissions for end users to view listgitlabmergerequests.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ include "template-controller.fullname" . }}-clusterrole
+    app.kubernetes.io/instance: listgitlabmergerequests-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: template-controller
+    app.kubernetes.io/part-of: template-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: {{ include "template-controller.fullname" . }}-listgitlabmergerequests-viewer-role
+rules:
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgitlabmergerequests
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - listgitlabmergerequests/status
+  verbs:
+  - get
+---
+# permissions for end users to edit objecthandlers.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "template-controller.fullname" . }}-objecthandler-editor-role
+rules:
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecthandlers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecthandlers/status
+  verbs:
+  - get
+---
+# permissions for end users to view objecthandlers.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "template-controller.fullname" . }}-objecthandler-viewer-role
+rules:
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecthandlers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecthandlers/status
+  verbs:
+  - get
+---
+# permissions for end users to edit objecttemplates.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "template-controller.fullname" . }}-objecttemplate-editor-role
+rules:
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecttemplates
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecttemplates/status
+  verbs:
+  - get
+---
+# permissions for end users to view objecttemplates.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "template-controller.fullname" . }}-objecttemplate-viewer-role
+rules:
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecttemplates
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - objecttemplates/status
+  verbs:
+  - get
+---
