@@ -34,6 +34,7 @@ tasks:
   download-crds-template-controller:
     cmds:
       - echo "Downloading CRDs for template-controller with version {{.SOURCE_VER}}"
+      - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_gitprojectors.yaml > charts/template-controller/crds/templates.kluctl.io_gitprojectors.yaml
       - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_listgithubpullrequests.yaml > charts/template-controller/crds/templates.kluctl.io_listgithubpullrequests.yaml
       - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_listgitlabmergerequests.yaml > charts/template-controller/crds/templates.kluctl.io_listgitlabmergerequests.yaml
       - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_objecthandlers.yaml > charts/template-controller/crds/templates.kluctl.io_objecthandlers.yaml
@@ -65,6 +66,8 @@ tasks:
     cmds:
       - echo "Downloading RBAC for template-controller with version {{.SOURCE_VER}}"
       - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/role.yaml)\n---\n" > charts/template-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/gitprojector_editor_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/gitprojector_viewer_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
       - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgithubpullrequests_editor_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
       - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgithubpullrequests_viewer_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
       - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgitlabmergerequests_editor_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml

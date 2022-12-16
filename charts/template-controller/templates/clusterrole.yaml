@@ -22,6 +22,15 @@ rules:
   - list
   - watch
 - apiGroups:
+  - ""
+  resources:
+  - serviceaccounts
+  verbs:
+  - get
+  - impersonate
+  - list
+  - watch
+- apiGroups:
   - apiextensions.k8s.io
   resources:
   - customresourcedefinitions
@@ -29,6 +38,32 @@ rules:
   - get
   - list
   - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - gitprojectors
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - gitprojectors/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - gitprojectors/status
+  verbs:
+  - get
+  - patch
+  - update
 - apiGroups:
   - templates.kluctl.io
   resources:
@@ -133,6 +168,66 @@ rules:
   - get
   - patch
   - update
+---
+# permissions for end users to edit gitprojectors.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ include "template-controller.fullname" . }}-clusterrole
+    app.kubernetes.io/instance: gitprojector-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: template-controller
+    app.kubernetes.io/part-of: template-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: {{ include "template-controller.fullname" . }}-gitprojector-editor-role
+rules:
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - gitprojectors
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - gitprojectors/status
+  verbs:
+  - get
+---
+# permissions for end users to view gitprojectors.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: {{ include "template-controller.fullname" . }}-clusterrole
+    app.kubernetes.io/instance: gitprojector-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: template-controller
+    app.kubernetes.io/part-of: template-controller
+    app.kubernetes.io/managed-by: kustomize
+  name: {{ include "template-controller.fullname" . }}-gitprojector-viewer-role
+rules:
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - gitprojectors
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - gitprojectors/status
+  verbs:
+  - get
 ---
 # permissions for end users to edit listgithubpullrequests.
 apiVersion: rbac.authorization.k8s.io/v1
