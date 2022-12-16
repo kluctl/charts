@@ -5,21 +5,20 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.9.2
   creationTimestamp: null
-  name: listgitlabmergerequests.templates.kluctl.io
+  name: gitprojectors.templates.kluctl.io
 spec:
   group: templates.kluctl.io
   names:
-    kind: ListGitlabMergeRequests
-    listKind: ListGitlabMergeRequestsList
-    plural: listgitlabmergerequests
-    singular: listgitlabmergerequests
+    kind: GitProjector
+    listKind: GitProjectorList
+    plural: gitprojectors
+    singular: gitprojector
   scope: Namespaced
   versions:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: ListGitlabMergeRequests is the Schema for the listgitlabmergerequests
-          API
+        description: GitProjector is the Schema for the gitprojectors API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -34,65 +33,60 @@ spec:
           metadata:
             type: object
           spec:
-            description: ListGitlabMergeRequestsSpec defines the desired state of
-              ListGitlabMergeRequests
+            description: GitProjectorSpec defines the desired state of GitProjector
             properties:
-              api:
-                description: The GitLab API URL to talk to. If blank, uses https://gitlab.com/.
-                type: string
+              files:
+                items:
+                  properties:
+                    glob:
+                      type: string
+                    parseYaml:
+                      default: false
+                      type: boolean
+                  required:
+                  - glob
+                  type: object
+                type: array
               interval:
                 default: 5m
                 description: Interval is the interval at which to query the Gitlab
                   API. Defaults to 5m.
                 pattern: ^([0-9]+(\.[0-9]+)?(ms|s|m|h))+$
                 type: string
-              labels:
-                description: Labels is used to filter the MRs that you want to target
-                items:
-                  type: string
-                type: array
-              limit:
-                default: 100
-                description: Limit limits the maximum number of merge requests to
-                  fetch. Defaults to 100
-                type: integer
-              project:
-                description: GitLab project to scan. Required.
-                type: string
-              sourceBranch:
-                type: string
-              state:
-                default: all
-                description: 'State is an additional MRs filter to get only those
-                  with a certain state. Default: "all"'
-                enum:
-                - all
-                - opened
-                - closed
-                - locked
-                - merged
-                type: string
-              targetBranch:
-                type: string
-              tokenRef:
-                description: Authentication token reference.
+              ref:
                 properties:
-                  key:
+                  branch:
+                    description: Branch to filter for. Can also be a regex.
                     type: string
-                  secretName:
+                  commit:
+                    description: Commit SHA to check out, takes precedence over all
+                      reference fields.
+                    type: string
+                  tag:
+                    description: Branch to filter for. Can also be a regex.
+                    type: string
+                type: object
+              secretRef:
+                properties:
+                  name:
+                    description: Name of the referent.
                     type: string
                 required:
-                - key
-                - secretName
+                - name
                 type: object
+              suspend:
+                default: false
+                type: boolean
+              url:
+                type: string
             required:
-            - limit
-            - project
+            - url
             type: object
           status:
-            description: ListGitlabMergeRequestsStatus defines the observed state
-              of ListGitlabMergeRequests
+            description: GitProjectorStatus defines the observed state of GitProjector
             properties:
+              allRefsHash:
+                type: string
               conditions:
                 items:
                   description: "Condition contains details for one aspect of the current
@@ -161,11 +155,43 @@ spec:
                   - type
                   type: object
                 type: array
-              mergeRequests:
+              result:
                 items:
+                  properties:
+                    files:
+                      items:
+                        properties:
+                          parsed:
+                            items:
+                              type: object
+                            type: array
+                            x-kubernetes-preserve-unknown-fields: true
+                          path:
+                            type: string
+                          raw:
+                            type: string
+                        required:
+                        - path
+                        type: object
+                      type: array
+                    ref:
+                      properties:
+                        branch:
+                          description: Branch to filter for. Can also be a regex.
+                          type: string
+                        commit:
+                          description: Commit SHA to check out, takes precedence over
+                            all reference fields.
+                          type: string
+                        tag:
+                          description: Branch to filter for. Can also be a regex.
+                          type: string
+                      type: object
+                  required:
+                  - files
+                  - ref
                   type: object
                 type: array
-                x-kubernetes-preserve-unknown-fields: true
             type: object
         type: object
     served: true
