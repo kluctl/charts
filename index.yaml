@@ -122,6 +122,23 @@ entries:
     version: 0.1.2
   template-controller:
   - apiVersion: v2
+    appVersion: v0.5.3
+    created: "2022-12-16T12:48:57.851614553Z"
+    description: A Helm chart for the template-controller
+    digest: d6b230b2a98d087cbe9e32cac1c6329e931e6d0d5fa28e3b9e65f4eda7f3f76f
+    maintainers:
+    - name: kluctl
+      url: https://github.com/kluctl/charts
+    - email: aljoscha.poertner@posteo.de
+      name: AljoschaP
+    - email: ablock84@gmail.com
+      name: codablock
+    name: template-controller
+    type: application
+    urls:
+    - https://github.com/kluctl/charts/releases/download/template-controller-0.1.1/template-controller-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     appVersion: v0.4.1
     created: "2022-11-29T12:54:49.743718855Z"
     description: A Helm chart for the template-controller
