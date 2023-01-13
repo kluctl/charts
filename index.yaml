@@ -2,6 +2,23 @@ apiVersion: v1
 entries:
   flux-kluctl-controller:
   - apiVersion: v2
+    appVersion: v0.13.1
+    created: "2023-01-13T17:03:04.116545693Z"
+    description: A Helm chart for the flux-kluctl-controller
+    digest: 581c410ba47b59d8e0e31e2b9f82ce447c9b4189fdb69c072632817552fde9bb
+    maintainers:
+    - name: kluctl
+      url: https://github.com/kluctl/charts
+    - email: aljoscha.poertner@posteo.de
+      name: AljoschaP
+    - email: ablock84@gmail.com
+      name: codablock
+    name: flux-kluctl-controller
+    type: application
+    urls:
+    - https://github.com/kluctl/charts/releases/download/flux-kluctl-controller-0.2.5/flux-kluctl-controller-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
     appVersion: v0.13.0
     created: "2022-12-28T17:16:57.218441352Z"
     description: A Helm chart for the flux-kluctl-controller
