@@ -25,23 +25,25 @@ tasks:
       - task: download-crds-flux-kluctl-controller
       - task: download-crds-template-controller
   download-crds-flux-kluctl-controller:
+    dir: charts/flux-kluctl-controller/crds/
     cmds:
       - echo "Downloading CRDs for flux-kluctl-controller with version {{.SOURCE_VER}}"
-      - curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/crd/bases/flux.kluctl.io_kluctldeployments.yaml > charts/flux-kluctl-controller/crds/flux.kluctl.io_kluctldeployments.yaml
+      - curl -s -LO https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/crd/bases/flux.kluctl.io_kluctldeployments.yaml
     vars:
       SOURCE_VER:
-        sh: "cat charts/flux-kluctl-controller/Chart.yaml | grep '^appVersion:' | sed 's/appVersion: \"\\([^\"]*\\)\"/\\1/'"
+        sh: "cat ../Chart.yaml | yq '.appVersion'"
   download-crds-template-controller:
+    dir: charts/template-controller/crds/
     cmds:
       - echo "Downloading CRDs for template-controller with version {{.SOURCE_VER}}"
-      - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_gitprojectors.yaml > charts/template-controller/crds/templates.kluctl.io_gitprojectors.yaml
-      - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_listgithubpullrequests.yaml > charts/template-controller/crds/templates.kluctl.io_listgithubpullrequests.yaml
-      - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_listgitlabmergerequests.yaml > charts/template-controller/crds/templates.kluctl.io_listgitlabmergerequests.yaml
-      - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_objecthandlers.yaml > charts/template-controller/crds/templates.kluctl.io_objecthandlers.yaml
-      - curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_objecttemplates.yaml > charts/template-controller/crds/templates.kluctl.io_objecttemplates.yaml
+      - curl -s -LO https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_gitprojectors.yaml
+      - curl -s -LO https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_listgithubpullrequests.yaml
+      - curl -s -LO https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_listgitlabmergerequests.yaml
+      - curl -s -LO https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_objecthandlers.yaml
+      - curl -s -LO https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_objecttemplates.yaml
     vars:
       SOURCE_VER:
-        sh: "cat charts/template-controller/Chart.yaml | grep '^appVersion:' | sed 's/appVersion: \"\\([^\"]*\\)\"/\\1/'"
+        sh: "cat ../Chart.yaml | yq '.appVersion'"
 
   # Download RBAC
   download-all-rbac:
@@ -50,38 +52,40 @@ tasks:
       - task: download-rbac-flux-kluctl-controller
       - task: download-rbac-template-controller
   download-rbac-flux-kluctl-controller:
+    dir: charts/flux-kluctl-controller
     cmds:
       - echo "Downloading RBAC for flux-kluctl-controller with version {{.SOURCE_VER}}"
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/role.yaml)\n---\n" > charts/flux-kluctl-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/kluctldeployment_editor_role.yaml)\n---\n" >> charts/flux-kluctl-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/kluctldeployment_viewer_role.yaml)\n---\n" >> charts/flux-kluctl-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/leader_election_role.yaml)\n---\n" > charts/flux-kluctl-controller/templates/role.yaml
-      - "{{.INPLACE_SED}} -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' charts/flux-kluctl-controller/templates/clusterrole.yaml"
-      - "{{.INPLACE_SED}} -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' charts/flux-kluctl-controller/templates/role.yaml"
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/role.yaml)\n---\n" > templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/kluctldeployment_editor_role.yaml)\n---\n" >> templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/kluctldeployment_viewer_role.yaml)\n---\n" >> templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/flux-kluctl-controller/{{.SOURCE_VER}}/config/rbac/leader_election_role.yaml)\n---\n" > templates/role.yaml
+      - "{{.INPLACE_SED}} -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' templates/clusterrole.yaml"
+      - "{{.INPLACE_SED}} -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' templates/role.yaml"
     vars:
       SOURCE_VER:
-        sh: "cat charts/flux-kluctl-controller/Chart.yaml | grep '^appVersion:' | sed 's/appVersion: \"\\([^\"]*\\)\"/\\1/'"
+        sh: "cat Chart.yaml | yq '.appVersion'"
       HELM_TEMPLATE_FULL_NAME: '{{`{{ include "flux-kluctl-controller.fullname" . }}`}}'
   download-rbac-template-controller:
+    dir: charts/template-controller/
     cmds:
       - echo "Downloading RBAC for template-controller with version {{.SOURCE_VER}}"
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/role.yaml)\n---\n" > charts/template-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/gitprojector_editor_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/gitprojector_viewer_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgithubpullrequests_editor_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgithubpullrequests_viewer_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgitlabmergerequests_editor_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgitlabmergerequests_viewer_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/objecthandler_editor_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/objecthandler_viewer_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/objecttemplate_editor_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/objecttemplate_viewer_role.yaml)\n---\n" >> charts/template-controller/templates/clusterrole.yaml
-      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/leader_election_role.yaml)\n---\n" > charts/template-controller/templates/role.yaml
-      - "{{.INPLACE_SED}} -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' charts/template-controller/templates/clusterrole.yaml"
-      - "{{.INPLACE_SED}} -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' charts/template-controller/templates/role.yaml"
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/role.yaml)\n---\n" > templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/gitprojector_editor_role.yaml)\n---\n" >> templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/gitprojector_viewer_role.yaml)\n---\n" >> templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgithubpullrequests_editor_role.yaml)\n---\n" >> templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgithubpullrequests_viewer_role.yaml)\n---\n" >> templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgitlabmergerequests_editor_role.yaml)\n---\n" >> templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/listgitlabmergerequests_viewer_role.yaml)\n---\n" >> templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/objecthandler_editor_role.yaml)\n---\n" >> templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/objecthandler_viewer_role.yaml)\n---\n" >> templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/objecttemplate_editor_role.yaml)\n---\n" >> templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/objecttemplate_viewer_role.yaml)\n---\n" >> templates/clusterrole.yaml
+      - printf "$(curl -s https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/rbac/leader_election_role.yaml)\n---\n" > templates/role.yaml
+      - "{{.INPLACE_SED}} -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' templates/clusterrole.yaml"
+      - "{{.INPLACE_SED}} -e 's/name: */name: {{.HELM_TEMPLATE_FULL_NAME}}-/' templates/role.yaml"
     vars:
       SOURCE_VER:
-        sh: "cat charts/template-controller/Chart.yaml | grep '^appVersion:' | sed 's/appVersion: \"\\([^\"]*\\)\"/\\1/'"
+        sh: "cat Chart.yaml | yq '.appVersion'"
       HELM_TEMPLATE_FULL_NAME: '{{`{{ include "template-controller.fullname" . }}`}}'
   # Generate README.md files for Charts
   generate-all-readmes:
