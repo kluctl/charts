@@ -5,21 +5,20 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.9.2
   creationTimestamp: null
-  name: listgitlabmergerequests.templates.kluctl.io
+  name: gitlabcomments.templates.kluctl.io
 spec:
   group: templates.kluctl.io
   names:
-    kind: ListGitlabMergeRequests
-    listKind: ListGitlabMergeRequestsList
-    plural: listgitlabmergerequests
-    singular: listgitlabmergerequests
+    kind: GitlabComment
+    listKind: GitlabCommentList
+    plural: gitlabcomments
+    singular: gitlabcomment
   scope: Namespaced
   versions:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: ListGitlabMergeRequests is the Schema for the listgitlabmergerequests
-          API
+        description: GitlabComment is the Schema for the gitlabcomments API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -34,68 +33,90 @@ spec:
           metadata:
             type: object
           spec:
-            description: ListGitlabMergeRequestsSpec defines the desired state of
-              ListGitlabMergeRequests
+            description: GitlabCommentSpec defines the desired state of GitlabComment
             properties:
-              api:
-                description: API specifies the GitLab API URL to talk to. If blank,
-                  uses https://gitlab.com/.
-                type: string
-              interval:
-                default: 5m
-                description: Interval is the interval at which to query the Gitlab
-                  API. Defaults to 5m.
-                pattern: ^([0-9]+(\.[0-9]+)?(ms|s|m|h))+$
-                type: string
-              labels:
-                description: Labels is used to filter the MRs that you want to target
-                items:
-                  type: string
-                type: array
-              limit:
-                default: 100
-                description: Limit limits the maximum number of merge requests to
-                  fetch. Defaults to 100
-                type: integer
-              project:
-                description: Project specifies the Gitlab group and project (separated
-                  by slash) to use
-                type: string
-              sourceBranch:
-                type: string
-              state:
-                default: all
-                description: 'State is an additional MRs filter to get only those
-                  with a certain state. Default: "all"'
-                enum:
-                - all
-                - opened
-                - closed
-                - locked
-                - merged
-                type: string
-              targetBranch:
-                description: TargetBranch specifies the target branch to filter for
-                type: string
-              tokenRef:
-                description: TokenRef specifies a secret and key to load the Gitlab
-                  API token from
+              comment:
                 properties:
-                  key:
+                  id:
+                    description: Id specifies the identifier to be used by the controller
+                      when it needs to find the actual comment when it does not know
+                      the internal id. This Id is written into the comment inside
+                      a comment, so that a simple text search can reveal the comment
                     type: string
-                  secretName:
-                    type: string
+                  source:
+                    description: 'Source specifies the source content for the comment.
+                      Different source types are supported: Text, ConfigMap and TextTemplate'
+                    properties:
+                      configMap:
+                        description: ConfigMap specifies a ConfigMap and a key to
+                          load the source content from
+                        properties:
+                          key:
+                            type: string
+                          name:
+                            type: string
+                        required:
+                        - key
+                        - name
+                        type: object
+                      text:
+                        description: Text specifies a raw text comment.
+                        type: string
+                      textTemplate:
+                        description: TextTemplate specifies a TextTemplate to load
+                          the source content from
+                        properties:
+                          name:
+                            description: Name of the referent.
+                            type: string
+                        required:
+                        - name
+                        type: object
+                    type: object
                 required:
-                - key
-                - secretName
+                - source
                 type: object
+              gitlab:
+                properties:
+                  api:
+                    description: API specifies the GitLab API URL to talk to. If blank,
+                      uses https://gitlab.com/.
+                    type: string
+                  mergeRequestId:
+                    description: MergeRequestId specifies the Gitlab merge request
+                      internal ID
+                    type: integer
+                  project:
+                    description: Project specifies the Gitlab group and project (separated
+                      by slash) to use
+                    type: string
+                  tokenRef:
+                    description: TokenRef specifies a secret and key to load the Gitlab
+                      API token from
+                    properties:
+                      key:
+                        type: string
+                      secretName:
+                        type: string
+                    required:
+                    - key
+                    - secretName
+                    type: object
+                required:
+                - mergeRequestId
+                - project
+                type: object
+              suspend:
+                default: false
+                description: Suspend can be used to suspend the reconciliation of
+                  this object
+                type: boolean
             required:
-            - limit
-            - project
+            - comment
+            - gitlab
             type: object
           status:
-            description: ListGitlabMergeRequestsStatus defines the observed state
-              of ListGitlabMergeRequests
+            description: GitlabCommentStatus defines the observed state of GitlabComment
             properties:
               conditions:
                 items:
@@ -165,11 +186,10 @@ spec:
                   - type
                   type: object
                 type: array
-              mergeRequests:
-                items:
-                  type: object
-                type: array
-                x-kubernetes-preserve-unknown-fields: true
+              lastPostedBodyHash:
+                type: string
+              noteId:
+                type: string
             type: object
         type: object
     served: true

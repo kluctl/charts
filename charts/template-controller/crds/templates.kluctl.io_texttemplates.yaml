@@ -5,20 +5,20 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.9.2
   creationTimestamp: null
-  name: objecttemplates.templates.kluctl.io
+  name: texttemplates.templates.kluctl.io
 spec:
   group: templates.kluctl.io
   names:
-    kind: ObjectTemplate
-    listKind: ObjectTemplateList
-    plural: objecttemplates
-    singular: objecttemplate
+    kind: TextTemplate
+    listKind: TextTemplateList
+    plural: texttemplates
+    singular: texttemplate
   scope: Namespaced
   versions:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: ObjectTemplate is the Schema for the objecttemplates API
+        description: TextTemplate is the Schema for the texttemplates API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -33,51 +33,18 @@ spec:
           metadata:
             type: object
           spec:
-            description: ObjectTemplateSpec defines the desired state of ObjectTemplate
+            description: TextTemplateSpec defines the desired state of TextTemplate
             properties:
-              interval:
-                default: 30s
-                pattern: ^([0-9]+(\.[0-9]+)?(ms|s|m|h))+$
-                type: string
-              matrix:
-                description: Matrix specifies the input matrix
+              inputs:
                 items:
                   properties:
-                    list:
-                      description: List specifies a list of plain YAML values which
-                        are made available while rendering templates. The list can
-                        be accessed through the name specified above
-                      items:
-                        type: object
-                      type: array
-                      x-kubernetes-preserve-unknown-fields: true
                     name:
-                      description: Name specifies the name this matrix input is available
-                        while rendering templates
                       type: string
                     object:
-                      description: Object specifies an object to load and make available
-                        while rendering templates. The object can be accessed through
-                        the name specified above. The service account used by the
-                        ObjectTemplate must have proper permissions to get this object
                       properties:
-                        expandLists:
-                          description: ExpandLists enables optional expanding of list.
-                            Expanding means, that each list entry is interpreted as
-                            individual matrix input instead of interpreting the whole
-                            list as one matrix input. This feature is only useful
-                            when used in combination with `jsonPath`
-                          type: boolean
                         jsonPath:
-                          description: JsonPath optionally specifies a sub-field to
-                            load. When specified, the sub-field (and not the whole
-                            object) is made available while rendering templates
                           type: string
                         ref:
-                          description: Ref specifies the apiVersion, kind, namespace
-                            and name of the object to load. The service account used
-                            by the ObjectTemplate must have proper permissions to
-                            get this object
                           properties:
                             apiVersion:
                               type: string
@@ -99,75 +66,37 @@ spec:
                   - name
                   type: object
                 type: array
-              prune:
-                default: false
-                description: Prune enables pruning of previously created objects when
-                  these disappear from the list of rendered objects
-                type: boolean
               serviceAccountName:
-                description: ServiceAccountName specifies the name of the Kubernetes
-                  service account to impersonate when reconciling this ObjectTemplate.
-                  If omitted, the "default" service account is used
+                description: The name of the Kubernetes service account to impersonate
+                  when reconciling this TextTemplate. If omitted, the "default" service
+                  account is used.
                 type: string
               suspend:
                 default: false
                 description: Suspend can be used to suspend the reconciliation of
-                  this object
+                  this object.
                 type: boolean
-              templates:
-                description: Templates specifies a list of templates to render and
-                  deploy
-                items:
-                  properties:
-                    object:
-                      description: Object specifies a structured object in YAML form.
-                        Each field value is rendered independently.
-                      type: object
-                      x-kubernetes-preserve-unknown-fields: true
-                    raw:
-                      description: Raw specifies a raw string to be interpreted/parsed
-                        as YAML. The whole string is rendered in one go, allowing
-                        to use advanced Jinja2 control structures. Raw object might
-                        also be required when a templated value must not be interpreted
-                        as a string (which would be done in Object).
-                      type: string
-                  type: object
-                type: array
-            required:
-            - interval
-            - matrix
-            - templates
+              template:
+                type: string
+              templateRef:
+                properties:
+                  configMap:
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                type: object
             type: object
           status:
-            description: ObjectTemplateStatus defines the observed state of ObjectTemplate
+            description: TextTemplateStatus defines the observed state of TextTemplate
             properties:
-              appliedResources:
-                items:
-                  properties:
-                    error:
-                      type: string
-                    ref:
-                      properties:
-                        apiVersion:
-                          type: string
-                        kind:
-                          type: string
-                        name:
-                          type: string
-                        namespace:
-                          type: string
-                      required:
-                      - apiVersion
-                      - kind
-                      - name
-                      type: object
-                    success:
-                      type: boolean
-                  required:
-                  - ref
-                  - success
-                  type: object
-                type: array
               conditions:
                 items:
                   description: "Condition contains details for one aspect of the current
@@ -236,6 +165,8 @@ spec:
                   - type
                   type: object
                 type: array
+              result:
+                type: string
             type: object
         type: object
     served: true
