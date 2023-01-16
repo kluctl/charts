@@ -41,6 +41,58 @@ rules:
 - apiGroups:
   - templates.kluctl.io
   resources:
+  - githubcomments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - githubcomments/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - githubcomments/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - gitlabcomments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - gitlabcomments/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - gitlabcomments/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
   - gitprojectors
   verbs:
   - create
@@ -164,6 +216,32 @@ rules:
   - templates.kluctl.io
   resources:
   - objecttemplates/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - texttemplates
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - texttemplates/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - templates.kluctl.io
+  resources:
+  - texttemplates/status
   verbs:
   - get
   - patch

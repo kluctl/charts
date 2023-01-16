@@ -41,6 +41,9 @@ tasks:
       - curl -s -LO https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_listgitlabmergerequests.yaml
       - curl -s -LO https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_objecthandlers.yaml
       - curl -s -LO https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_objecttemplates.yaml
+      - curl -s -LO https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_texttemplates.yaml
+      - curl -s -LO https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_githubcomments.yaml
+      - curl -s -LO https://raw.githubusercontent.com/kluctl/template-controller/{{.SOURCE_VER}}/config/crd/bases/templates.kluctl.io_gitlabcomments.yaml
     vars:
       SOURCE_VER:
         sh: "cat ../Chart.yaml | yq '.appVersion'"
