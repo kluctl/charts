@@ -1,6 +1,8 @@
 # Changelog
 
-## [flux-kluctl-controller-Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.2.4...HEAD) (2023-01-13)
+## [flux-kluctl-controller-Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.2.5...HEAD) (2023-02-10)
+
+### [flux-kluctl-controller-0.2.5](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.2.4...flux-kluctl-controller-0.2.5) (2023-01-13)
 
 ### [flux-kluctl-controller-0.2.4](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.2.3...flux-kluctl-controller-0.2.4) (2022-12-28)
 
