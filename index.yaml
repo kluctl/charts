@@ -2,6 +2,23 @@ apiVersion: v1
 entries:
   flux-kluctl-controller:
   - apiVersion: v2
+    appVersion: v0.15.1
+    created: "2023-05-12T13:04:46.950181253Z"
+    description: A Helm chart for the flux-kluctl-controller
+    digest: cdc28a052b11750d3751790a7f08fd3b3a8cc80b91593b2040784537d0615433
+    maintainers:
+    - name: kluctl
+      url: https://github.com/kluctl/charts
+    - email: aljoscha.poertner@posteo.de
+      name: AljoschaP
+    - email: ablock84@gmail.com
+      name: codablock
+    name: flux-kluctl-controller
+    type: application
+    urls:
+    - https://github.com/kluctl/charts/releases/download/flux-kluctl-controller-0.2.9/flux-kluctl-controller-0.2.9.tgz
+    version: 0.2.9
+  - apiVersion: v2
     appVersion: v0.15.0
     created: "2023-03-06T17:30:30.852435463Z"
     description: A Helm chart for the flux-kluctl-controller
@@ -240,6 +257,23 @@ entries:
     - https://github.com/kluctl/charts/releases/download/flux-kluctl-controller-0.1.2/flux-kluctl-controller-0.1.2.tgz
     version: 0.1.2
   template-controller:
+  - apiVersion: v2
+    appVersion: v0.6.0
+    created: "2023-05-12T13:04:47.094763957Z"
+    description: A Helm chart for the template-controller
+    digest: 1f0ce5e3acf5ea82eb02cbd9867fa2717085fa6d79a2cc661105578c017194a8
+    maintainers:
+    - name: kluctl
+      url: https://github.com/kluctl/charts
+    - email: aljoscha.poertner@posteo.de
+      name: AljoschaP
+    - email: ablock84@gmail.com
+      name: codablock
+    name: template-controller
+    type: application
+    urls:
+    - https://github.com/kluctl/charts/releases/download/template-controller-0.2.1/template-controller-0.2.1.tgz
+    version: 0.2.1
   - apiVersion: v2
     appVersion: v0.6.0
     created: "2023-01-16T12:45:21.934240854Z"
