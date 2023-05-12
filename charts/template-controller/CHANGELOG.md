@@ -1,11 +1,18 @@
 # Changelog
 
-## [template-controller-Unreleased](https://github.com/kluctl/charts/compare/template-controller-0.1.2...HEAD) (2023-01-16)
+## [template-controller-Unreleased](https://github.com/kluctl/charts/compare/template-controller-0.2.0...HEAD) (2023-05-12)
 
 ### Features
 
-* **template-controller:** Upgrade controller to 0.6.0
-([d5f1859](https://github.com/kluctl/charts/commit/d5f1859fe115033d0a5876ef23fe0ad975fd182b))
+* **template-controller:** Allow users to specify additional env variables
+([b5960f1](https://github.com/kluctl/charts/commit/b5960f1ff1e14f8b8b9ac65217cd5a8da5c62f49))
+
+## [template-controller-0.2.0](https://github.com/kluctl/charts/compare/template-controller-0.1.2...template-controller-0.2.0) (2023-01-16)
+
+### Features
+
+* **template-controller:** Upgrade controller to 0.6.0 (#21)
+([325f21e](https://github.com/kluctl/charts/commit/325f21e0088ab0efa7840f9fbb22d4d267be07d5))
 
 ### [template-controller-0.1.2](https://github.com/kluctl/charts/compare/template-controller-0.1.1...template-controller-0.1.2) (2022-12-20)
 
