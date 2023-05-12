@@ -1,8 +1,20 @@
 # Changelog
 
-## [flux-kluctl-controller-Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.2.7...HEAD) (2023-03-06)
+## [flux-kluctl-controller-Unreleased](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.2.8...HEAD) (2023-05-12)
+
+### Features
+
+* **flux-kluctl-controller:** Allow users to specify additional env variables
+([0b72204](https://github.com/kluctl/charts/commit/0b7220424e62404600bd776a260aef3b37930a53))
 
 ### Fixes
+
+* **flux-kluctl-controller:** Upgrade flux-kluctl-controller to v0.15.1
+([20b414d](https://github.com/kluctl/charts/commit/20b414d8040e7de53bfa96734b0b7ba2ebca08d4))
+
+### [flux-kluctl-controller-0.2.8](https://github.com/kluctl/charts/compare/flux-kluctl-controller-0.2.7...flux-kluctl-controller-0.2.8) (2023-03-06)
+
+#### Fixes
 
 * **flux-kluctl-controller:** Upgrade flux-kluctl-controller to 0.15.0
 ([da5719e](https://github.com/kluctl/charts/commit/da5719e78f563c39f2425bbe6206482abb8957d9))
