@@ -1,9 +1,18 @@
 # Changelog
 
-## [template-controller-Unreleased](https://github.com/kluctl/charts/compare/template-controller-0.2.1...HEAD) (2023-05-17)
+## [template-controller-Unreleased](https://github.com/kluctl/charts/compare/template-controller-0.2.2...HEAD) (2023-12-19)
 
 ### Fixes
 
+* **template-controller:** Upgrade template-controller to v0.8.1
+([a46b35c](https://github.com/kluctl/charts/commit/a46b35c38e15609f96e6685e20400a0d44cc1d65))
+
+### [template-controller-0.2.2](https://github.com/kluctl/charts/compare/template-controller-0.2.1...template-controller-0.2.2) (2023-05-17)
+
+#### Fixes
+
+* **template-controller:** Fix missing apiGroups
+([67492b4](https://github.com/kluctl/charts/commit/67492b4e75bf618d100916e233f073e31ff537d1))
 * **template-controller:** Upgrade controller to v0.7.0
 ([6322e6e](https://github.com/kluctl/charts/commit/6322e6ed43879b9cd50d8659ec33ac200f748af1))
 
