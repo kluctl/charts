@@ -10,4 +10,4 @@ maintainers:
 description: A Helm chart for the template-controller
 type: application
 version: 0.2.3
-appVersion: "v0.8.1"
+appVersion: "v0.8.2"
