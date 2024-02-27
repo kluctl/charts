@@ -1,8 +1,15 @@
 # Changelog
 
-## [template-controller-Unreleased](https://github.com/kluctl/charts/compare/template-controller-0.2.3...HEAD) (2024-02-07)
+## [template-controller-Unreleased](https://github.com/kluctl/charts/compare/template-controller-0.2.4...HEAD) (2024-02-27)
 
 ### Fixes
+
+* **template-controller:** Upgrade template-controller to 0.8.2
+([35e6655](https://github.com/kluctl/charts/commit/35e6655085832dd251216f848aff64ac81d77d55))
+
+### [template-controller-0.2.4](https://github.com/kluctl/charts/compare/template-controller-0.2.3...template-controller-0.2.4) (2024-02-07)
+
+#### Fixes
 
 * **template-controller:** Upgrade template-controller to 0.8.2
 ([f94c21e](https://github.com/kluctl/charts/commit/f94c21e900aa4792aeda52239e2679ddf6ba82b7))
