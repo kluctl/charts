@@ -1,3 +1,6 @@
+|![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Warning.svg/156px-Warning.svg.png) | This Chart repository is no longer maintained. Please use the OCI Charts provided by the template-controller repository: https://github.com/kluctl/template-controller/blob/main/docs/install.md<br>Please also read the upgrade instructions found in the link from above.<br><br>The flux-kluctl-controller is also deprecated and replaces by the kluctl-controller described here: https://kluctl.io/docs/gitops/
+|---|---|
+
 # The Kluctl Library for Kubernetes
 
 [Helm Charts](https://github.com/helm/helm) provided by [kluctl](https://kluctl.io).
